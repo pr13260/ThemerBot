@@ -1,8 +1,7 @@
 const handlers = [
-    `start`,
+    `help`,
     `custom-color`,
     `photos`,
-    `documents`,
     `cbquery`,
     `rename`,
     `share`,
@@ -10,6 +9,4 @@ const handlers = [
 ];
 
 module.exports = bot =>
-    handlers.forEach(handler =>
-        require(`./${handler}`)(bot)
-    );
+    handlers.forEach(handler => require(`./${handler}`)(bot));

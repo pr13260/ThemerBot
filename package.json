@@ -1,35 +1,41 @@
 {
-  "name": "createatthemebot",
+  "name": "themerbot",
   "version": "0.1.0",
   "description": "Create themes for telegram android from a picture.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "lint": "eslint **/*.js --fix"
+    "lint": "eslint . --format codeframe",
+    "i18n": "node scripts/download-translations.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YouTwitFace/CreateAtthemeBot.git"
+    "url": "git+https://github.com/YouTwitFace/ThemerBot.git"
   },
   "author": "YouTwitFace <contact@lungers.com>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/YouTwitFace/CreateAtthemeBot/issues"
+    "url": "https://github.com/YouTwitFace/ThemerBot/issues"
   },
-  "homepage": "https://github.com/YouTwitFace/CreateAtthemeBot#readme",
+  "homepage": "https://github.com/YouTwitFace/ThemerBot#readme",
   "dependencies": {
-    "attheme-js": "^2.1.4",
-    "dotenv": "^7.0.0",
+    "@snejugal/color": "^2.1.1",
+    "attheme-js": "^3.0.0",
+    "color": "^3.1.2",
+    "dotenv": "^8.2.0",
     "get-image-colors": "^2.0.0",
-    "new-i18n": "^1.1.1",
-    "promise-fs": "^2.0.1",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2",
-    "sharp": "^0.21.1",
-    "telegraf": "^3.27.0",
-    "xmldom": "^0.1.27"
+    "image-size": "^0.8.3",
+    "new-i18n": "^1.4.0",
+    "promise-fs": "^2.1.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
+    "sharp": "^0.25.2",
+    "telegraf": "^3.37.0",
+    "telegraf-plugin-tgan": "^1.0.1",
+    "unzipper": "^0.10.10",
+    "xmldom": "^0.3.0"
   },
   "devDependencies": {
-    "eslint": "^5.11.1"
+    "eslint": "^6.8.0"
   }
 }

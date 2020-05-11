@@ -1,5 +1,5 @@
 module.exports = bot => {
-    bot.hears(/^#[\da-f]{6}$/i, async ctx => {
+    bot.hears(/^#(?:[\da-f]{3}){1,2}$/i, async ctx => {
         const { reply_to_message: reply } = ctx.message;
 
         if (!reply) {
@@ -13,7 +13,16 @@ module.exports = bot => {
             return await ctx.reply(ctx.i18n(`no_theme_found`));
         }
 
-        const [color] = ctx.match;
+        let [color] = ctx.match;
+        if (color.length === 4) {
+            color =
+                `#` +
+                color
+                    .slice(1)
+                    .split(``)
+                    .map(c => c.repeat(2))
+                    .join(``);
+        }
 
         if (theme.using[0] === color) {
             return ctx.reply(ctx.i18n(`cant_reuse_bg`));
@@ -25,25 +34,21 @@ module.exports = bot => {
         const keyboard = ctx.keyboard(true);
         const { length } = theme.using;
 
-        const captionArgs = [
-            ctx.chat.id,
-            themeId,
-            null,
-        ];
+        const captionArgs = [ctx.chat.id, themeId, null];
 
-        if (length < 3) {
+        if (length < 4) {
             await ctx.telegram.editMessageCaption(
                 ...captionArgs,
                 ctx.i18n(`choose_color_${length + 1}`, {
                     colors: theme.using.join(`, `),
                 }),
-                { reply_markup: keyboard }
+                { reply_markup: keyboard },
             );
         } else {
             await ctx.telegram.editMessageCaption(
                 ...captionArgs,
                 ctx.i18n(`type_of_theme`),
-                ctx.typeKeyboard
+                ctx.typeKeyboard(),
             );
         }
 

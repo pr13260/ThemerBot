@@ -7,8 +7,9 @@ module.exports = bot => {
         if (reply) {
             const { from, document } = reply;
 
-            const isFromBot = from.username === process.env.USERNAME;
-            const isThemeFile = document && isThemeFileRegex.test(document.file_name);
+            const isFromBot = from.username === process.env.BOT_USERNAME;
+            const isThemeFile =
+                document && isThemeFileRegex.test(document.file_name);
 
             if (isFromBot && isThemeFile) {
                 const file = await ctx.downloadFile();
@@ -17,12 +18,12 @@ module.exports = bot => {
                 await ctx.replyWithDocument(
                     {
                         source: Buffer.from(file, `binary`),
-                        filename: `${text} by @${process.env.USERNAME}.${fileExt}`,
+                        filename: `${text} by @${process.env.BOT_USERNAME}.${fileExt}`,
                     },
                     {
                         caption: reply.caption,
                         reply_to_message_id: reply.message_id,
-                    }
+                    },
                 );
             }
         }

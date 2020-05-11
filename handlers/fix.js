@@ -8,12 +8,13 @@ module.exports = bot => {
     const isThemeFileRegex = /\.attheme$/;
 
     bot.on(`document`, async (ctx, next) => {
-        const typing = ctx.action(`upload_photo`);
         const { document, ...message } = ctx.message;
 
-        const isThemeFile = document && isThemeFileRegex.test(document.file_name);
+        const isThemeFile =
+            document && isThemeFileRegex.test(document.file_name);
 
         if (isThemeFile) {
+            const typing = ctx.action(`upload_photo`);
             const file = await ctx.downloadFile();
             const fileName = document.file_name;
             const oldTheme = new Attheme(file.toString(`binary`));
@@ -39,14 +40,14 @@ module.exports = bot => {
                 {
                     caption: `#theme ${colors.join(` `)}`,
                     reply_to_message_id: message.message_id,
-                }
+                },
             );
 
             await bot.telegram.editMessageReplyMarkup(
                 ctx.chat.id,
                 reply.message_id,
                 null,
-                ctx.shareKeyboard(reply.document.file_id)
+                ctx.shareKeyboard(reply.document.file_id),
             );
 
             typing.stop();
